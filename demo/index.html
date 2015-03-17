@@ -1,0 +1,428 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Plugin walidacji formularzy</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Wyświetl nawigację</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Plugin walidacji formularzy</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#instalacja">Instalacja wtyczki</a></li>
+                <li><a href="#dokumentacja">Dokumentacja i przykłady użycia<span class="sr-only">(current)</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container col-md-12">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation"><a href="#required">Walidacja pola wymaganego</a></li>
+                <li role="presentation"><a href="#alpha">Wprowadzanie tylko liter</a></li>
+                <li role="presentation"><a href="#alnum">Wprowadzanie liczb i znaków alfabetu</a></li>
+                <li role="presentation"><a href="#postcode">Walidacja pola kodu pocztowego</a></li>
+                <li role="presentation"><a href="#email">Walidacja pola adresu email</a></li>
+                <li role="presentation"><a href="#pesel">Walidacja numeru PESEL</a></li>
+                <li role="presentation"><a href="#nip">Walidacja numeru NIP</a></li>
+                <li role="presentation"><a href="#regon">Walidacja numeru REGON</a></li>
+                <li role="presentation"><a href="#digit">Wprowadzanie tylko liczb jako wartości</a></li>
+                <li role="presentation"><a href="#no-filter">Usuwanie filtrowania pola</a></li>
+                <li role="presentation"><a href="#strlen-max">Ograniczenie maksymalnej liczby znaków</a></li>
+                <li role="presentation"><a href="#strlen-min">Ograniczenie minimalnej liczby znaków</a></li>
+                <li role="presentation"><a href="#value-range">Wprowadzenie przedziału liczbowego dla wartości</a></li>
+                <li role="presentation"><a href="#data-regex">Walidacja pola według wzorca (Regex)</a></li>
+                <li role="presentation"><a href="#msg-error">Ustawienie komunikatu błędu za pomocą atrybutu</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div id="required" class="row col-md-12">
+                <h1 id="instalacja">Instalacja wtyczki</h1>
+                <p>Do poprawnego funkcjonowania walidacji wymagane jest dołączenie do projektu następujących plików:</p>
+                <ul>
+                    <li>jquery.js</li>
+                    <li>jquery.validate.js</li>
+                    <li>jquery.validate.additional-methods.js</li>
+                    <li><strong>jquery.validate.main.js</strong></li>
+                </ul>
+                <p>Walidacja pobiera ze strony wszystkie tagi formularzy, a następnie do określonych selektorów przypisuje wszystkie pola (input, select, textarea). Dokładnie to widać na konsoli w trybie debugowania, który możemy włączyć w pliku pluginu ustawiając wartość parametru "debugMode" na <b>true</b>.</p>
+                <div class="highlight">
+                    <pre><code>debugMode : false // true or false</code></pre>
+                </div>
+                <hr>
+                <h1 id="dokumentacja">Przykłady użycia</h1>
+                <h2>required</h2>
+                <p>Wprowadza warunek uzupełnienia pola, w celu wysłania formularza przez użytkownika.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>required="required"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form1" id="form1" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="5505a1d625e3e"><span class="asterix">* </span>Wymagane pole</label>
+                                    <input type="text" class="form-control"
+                                           name="username"
+                                           required="required" id="5505a1d625e3e">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="username" required="required" id="5505a1d625e3e"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="alnum" class="row col-md-12">
+                <h2>data-type<small> alnum</small></h2>
+                <p></p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>data-type="alnum"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form3" id="form3" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="5501a1d625e3e"><span class="asterix">* </span>Znaki alfabetu i liczby</label>
+                                    <input type="text" class="form-control"
+                                           name="field"
+                                           required="required" data-type="alnum" id="5501a1d625e3e">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="field" data-type="alnum" required="required" id="5501a1d625e3e"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="alpha" class="row col-md-12">
+                <h2>data-type<small> alpha</small></h2>
+                <p>Pozwala na wprowadzenie przez użytkownika wyłącznie liter.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>data-type="alpha"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form4" id="form4" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="1501a1d625e3e"><span class="asterix">* </span>Tylko litery</label>
+                                    <input type="text" class="form-control"
+                                           name="field"
+                                           required="required" data-type="alpha" id="1501a1d625e3e">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="field" data-type="alpha" required="required" id="1501a1d625e3e"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="postcode" class="row col-md-12">
+                <h2>data-type<small> postcode</small></h2>
+                <p>Pozwala na wprowadzenie kodu pocztowego w formacie XX-XXX przez użytkownika.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>data-type="postcode"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form5" id="form5" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="1501a1d625e3"><span class="asterix">* </span>Kod pocztowy</label>
+                                    <input type="text" class="form-control"
+                                           name="field"
+                                           required="required" data-type="postcode" id="1501a1d625e3">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="field" data-type="postcode" required="required" id="1501a1d625e3"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="digit" class="row col-md-12">
+                <h2>data-type<small> digit</small></h2>
+                <p>Pozwala na wprowadzenie wyłącznie liczb.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>data-type="digit"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form6" id="form6" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="501a1d625e3"><span class="asterix">* </span>Wiek</label>
+                                    <input type="text" class="form-control"
+                                           name="field"
+                                           required="required" maxlength="3" data-type="digit" id="501a1d625e3">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="field" maxlength="3" data-type="digit" required="required" id="501a1d625e3"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="no-filter" class="row col-md-12">
+                <h2>data-no-filter<small></small></h2>
+                <p>Usuwa automatyczną modyfikację pola podczas wpisywania.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>data-no-filter=""</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form7" id="form7" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="2501a1d625e3"><span class="asterix">* </span>Wiek</label>
+                                    <input type="text" class="form-control"
+                                           name="field"
+                                           required="required" maxlength="3" data-type="digit" data-no-filter="" id="2501a1d625e3">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="field" maxlength="3" data-type="digit" data-no-filter="" required="required" id="2501a1d625e3"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="strlen-max" class="row col-md-12">
+                <h2>data-strlen-max<small></small></h2>
+                <p>Wprowadza ograniczenie w postaci maksymalnej długości wartości pola.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>data-strlen-max="(liczba)"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form8" id="form8" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="8501a1d625e3"><span class="asterix">* </span>Opis (max. 10 znaków)</label>
+                                    <input type="text" class="form-control" data-strlen-max="10"
+                                           name="field"
+                                           required="required" id="8501a1d625e3">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="field" data-strlen-max="10" required="required" id="8501a1d625e3"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="strlen-min" class="row col-md-12">
+                <h2>data-strlen-min<small></small></h2>
+                <p>Wprowadza ograniczenie w postaci minimalnej długości wartości pola.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>data-strlen-min="(liczba)"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form9" id="form9" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="7501a1d625e3"><span class="asterix">* </span>Opis (min. 10 znaków)</label>
+                                    <input type="text" class="form-control" data-strlen-min="10"
+                                           name="field"
+                                           required="required" id="7501a1d625e3">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="field" data-strlen-min="10" required="required" id="7501a1d625e3"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="value-range" class="row col-md-12">
+                <h2>data-value-min, data-value-max<small></small></h2>
+                <p>Wprowadza ograniczenie w postaci przedziału wartości pola.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>data-value-min="(liczba)" data-value-max="(liczba)"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form10" id="form10" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="01a1d625e3"><span class="asterix">* </span>Liczba</label>
+                                    <input type="text" class="form-control" data-type="digit" data-value-min="10" data-value-max="20"
+                                           name="field"
+                                           required="required" id="01a1d625e3">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="field" data-type="digit" required="required" id="01a1d625e3"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="data-regex" class="row col-md-12">
+                <h2>data-regex</h2>
+                <p>Sprawdzanie poprawności pola według podanego wzorca w atrybucie data-regex.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>data-regex="(regex)"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form2" id="form2" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="5505a8d625e3e"><span class="asterix">* </span>Imię</label>
+                                    <input type="text" class="form-control"
+                                           data-regex="^[a-zA-ZĄĆĘŁŃÓŚŹŻąćęłńóśźż][a-zA-ZĄĆĘŁŃÓŚŹŻąćęłńóśźż-]" name="required-field"
+                                           required="required" id="5505a8d625e3e">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" data-regex="^[a-zA-ZĄĆĘŁŃÓŚŹŻąćęłńóśźż][a-zA-ZĄĆĘŁŃÓŚŹŻąćęłńóśźż-]" name="username" required="required" id="5505a8d625e3e"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="email" class="row col-md-12">
+                <h2>email</h2>
+                <p>Sprawdzanie poprawności pola adresu e-mail.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>type="email"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form11" id="form11" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="f11"><span class="asterix">* </span>Email</label>
+                                    <input type="email" class="form-control"
+                                           name="required-field"
+                                           required="required" id="f11">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="email" class="form-control" name="email" required="required" id="f11"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="pesel" class="row col-md-12">
+                <h2>pesel</h2>
+                <p>Sprawdzanie za pomocą sumy kontrolnej poprawności PESEL-u.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>name="pesel"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form14" id="form14" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="f111"><span class="asterix">* </span>PESEL</label>
+                                    <input type="text" class="form-control"
+                                           name="pesel"
+                                           required="required" id="f111">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="pesel" required="required" id="f111"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="nip" class="row col-md-12">
+                <h2>nip</h2>
+                <p>Sprawdzanie za pomocą sumy kontrolnej poprawności NIP-u.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>name="nip"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form16" id="form16" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="f121"><span class="asterix">* </span>NIP</label>
+                                    <input type="text" class="form-control"
+                                           name="nip"
+                                           required="required" id="f121">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="nip" required="required" id="f121"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="regon" class="row col-md-12">
+                <h2>regon</h2>
+                <p>Sprawdzanie za pomocą sumy kontrolnej poprawności REGON-u.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>name="regon"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form17" id="form17" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="f1212"><span class="asterix">* </span>REGON</label>
+                                    <input type="text" class="form-control"
+                                           name="regon"
+                                           required="required" id="f1212">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="regon" required="required" id="f1212"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="msg-error" class="row col-md-12">
+                <h2>msg-error</h2>
+                <p>Ustawia komunikat błędu zdefiniowany przez atrybut.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Przykład użycia atrybutu <strong>msg-error="(tekst)"</strong></div>
+                    <div class="panel-body">
+                        <div class="bs-example">
+                            <form name="form13" id="form13" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="f13"><span class="asterix">* </span>Maksymalnie 1 znak</label>
+                                    <input type="text" class="form-control"
+                                           name="field" data-strlen-max="1" msg-error="To jest komunikat w przypadku błędu"
+                                           required="required" id="f13">
+                                </div>
+                                <div class="highlight">
+                                    <pre><code data-lang="html" class="language-html"><input type="text" class="form-control" name="field" data-strlen-max="1" msg-error="To jest komunikat w przypadku błędu" required="required" id="f13"></code></pre>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Wyślij formularz</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.validate.js"></script>
+<script type="text/javascript" src="js/jquery.validate.additional-methods.js"></script>
+<script type="text/javascript" src="js/jquery.mask.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validate.main.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('code').each(function() {
+            $(this).text($(this).html());
+        });
+
+        $('input[data-type=postcode]').mask("00-000");
+    });
+</script>
+</body>
+</html>
