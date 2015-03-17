@@ -3,6 +3,16 @@ Forms validation with settings on data-* attributes based on jQuery Validation P
 
 It's well supported by Magento (our primary usage for this plugin is to customize checkout). Works very well. See the live demo: https://github.com/DivanteLtd/Validation-plugin/blob/master/demo/index.html
 
+Available validators: 
+- PESEL, 
+- NIP,
+- REGON,
+- email,
+- digits,
+- alnum,
+- postcode,
+- regexp.
+
 Examples:
 
                                 <div class="form-group">
