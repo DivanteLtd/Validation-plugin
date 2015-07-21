@@ -1,8 +1,8 @@
-(function($) {
+(function ($) {
 
     // set plugin options
     var options = {
-        debugMode : false // true or false
+        debugMode: false // true or false
     };
 
     // create main validators container
@@ -11,9 +11,9 @@
     // get all form id's on a page, push to array
     var forms = [];
 
-    $.fn.onlyDigits = function() {
+    $.fn.onlyDigits = function () {
         $(this).keyup(function () {
-            this.value = this.value.replace(/[^0-9\.]/g,'');
+            this.value = this.value.replace(/[^0-9\.]/g, '');
         });
     };
 
@@ -139,7 +139,7 @@
                     rulesObj.messages[name].required = 'Zaznacz wybór.';
 
                     //if($(elem.attr('max-answers') !== undefined)) {
-                        rulesObj.rules[name].multiCheck = true;
+                    rulesObj.rules[name].multiCheck = true;
                     //}
                 }
 
@@ -195,6 +195,11 @@
             // check if element has Selectric initialized on it
             var data = element.data('selectric');
             error.appendTo(data ? element.closest('.' + data.classes.wrapper).parent() : element.parent());
+
+            //If element is a checkbox than append error to parent
+            if (element.type === "checkbox" || element.hasClass('iCheck')) {
+                error.appendTo(parent);
+            }
         };
         rulesObj.highlight = function (element, errorClass, validClass) {
             $(element).addClass(errorClass).removeClass(validClass); // default functionality
@@ -245,7 +250,8 @@
                     }
                 });
                 return false;
-            } else if ($(form).attr('ajaxthis') == 'true') { }
+            } else if ($(form).attr('ajaxthis') == 'true') {
+            }
             else {
                 form.submit();
             }
@@ -255,16 +261,16 @@
         // create validator object, passing created rulesObj
         formValidators[selector] = $(selector).validate(rulesObj);
 
-        $(document).on('blur', 'input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="password"], textarea', function() {
-            if($(this).parents('form').length) {
+        $(document).on('blur', 'input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="password"], textarea', function () {
+            if ($(this).parents('form').length) {
                 var val = $(this).val();
-                $(this).val(val.replace(/\s*$/,''));
+                $(this).val(val.replace(/\s*$/, ''));
                 $(this).valid();
             }
         });
 
-        $(document).on('change', 'select, input[type="checkbox"], input[type="radio"]', function() {
-            if($(this).parents('form').length) {
+        $(document).on('change', 'select, input[type="checkbox"], input[type="radio"]', function () {
+            if ($(this).parents('form').length) {
                 $(this).valid();
             }
         });
